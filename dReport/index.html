@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head class="metrouicss">
+    <link rel="stylesheet" href="/static/css/modern.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="modern-responsive.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+    <div class="nav-bar bg-color-blue fg-color-white" style="text-align:right">Signed in as: {{ user }} &nbsp;
+      <a style="margin-top:5px" class="body-text button fg-color-darken bg-color-blueLight" href ="{{ url }}">{{ url_linktext }}</a></p>
+    </div>
+  </head>
+  <body class="metrouicss">
+  {% if user %}
+    {% for report in reports %}
+      <blockquote>
+        <p>{{ report.user }} reported:<br><br>
+        {{ report.record|escape }}</p><br>
+        <p> Remarks: {{ report.remark }}</p><br>
+        <p> Report type: {{ report.errortype }}</p>
+        <p class="fg-color-red"> Status: {{ report.status }}</p>
+      </blockquote>
+      <hr width="40%" SIZE="1" noshade>
+    {% endfor %}
+    <br>
+    <p>Hello, {{ user }}</p>
+    <p>This is an error reporting application for IT equipment and software errors.</p>
+    <h5>What would you like to report today?</h5>
+    <form action="/submit" method="post">
+      <div>
+        <textarea id="content" name="content" rows="5" cols="60"></textarea>
+      </div><br>
+      <div style="margin-left:5px">
+        <p> Category of error:
+        <select name="option">
+          <option name="IT" value="IT">IT errors</option> 
+          <option name="AV" value="AV">AV errors</option>
+          <option name="General" value="General">General facilities</option>
+        </select></p>&nbsp;  
+      <input type="submit" class="bg-color-blueDark" value="Report">
+      </div>
+    </form>
+  {% endif %}
+
+  </body>
+  <footer>
+    <p>Styled with <a href="http://metroui.org.ua">Metro UI CSS</a></p>
+  </footer>
+</html>

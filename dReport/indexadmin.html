@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head class="metrouicss">
+    <link rel="stylesheet" href="/static/css/modern.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="modern-responsive.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+    <div class="bg-color-blue fg-color-white" style="text-align:right">Signed in as: {{ user }} &nbsp; 
+      <a style="margin-top:5px" class="button fg-color-darken bg-color-blueLight" href ="{{ url }}">{{ url_linktext }}</a></p>
+    </div>
+  </head>
+  <body class="metrouicss">
+    {% for report in reports %}
+    {% if errhandle == "all" or errhandle == report.errortype %}
+      <div>
+        <blockquote><p>{{ report.user }} reported: <br><br>
+          {{ report.record|escape }} <br>
+          Error type: {{ report.errortype|escape }} <br><br> 
+          Current status: {{ report.status }} <br>
+          Current remark: {{ report.remark }} </p><br>
+          <form action="/update", method="post">
+          <div class="input-control-select">
+            <select name="update" id="update">
+              <option name="Seen" value="Seen">Seen</option>
+              <option name="In progress" value="In progress">In progress</option>
+              <option name="Complete!" value="Complete!">Complete!</option>
+            </select> &nbsp; 
+            <div class="input-control text" style="width:200px;margin-top:10px">
+              <input type="text" id="remark" name="remark" class="with-helper" placeholder="Any special remarks?"/>
+              <button class="helper"></button>
+            </div>
+            <input type="hidden" id="id" name="id" value={{ report.reportid }}>
+            <input type="submit" class="bg-color-blueDark" value="Change Status">
+          </div>
+        </form>
+        <form action="/delete", method="post">
+        <div>
+          <input type="hidden" id="id" name="id" value={{ report.reportid }}>
+          <label class="input-control checkbox">
+            <input type="checkbox" id="delete" name="delete" value="yes">
+            <span class="helper">Really delete?</span>
+          </label>
+          <input type="submit" class="bg-color-blueDark" value="Delete">
+        </form>
+        </blockquote>
+      </div>
+      <hr width="40%" SIZE="1" noshade>
+    {% endif %}
+    {% endfor %}
+    {% if not reports %}
+      <p style="font-size:15px;"> There are no reports currently. </p>
+    {% else %}
+      <p style="font-size:15px;"> Reports you are in charge of are shown. Other reports may be present, but not available to you. </p>
+    {% endif %}
+  </body>
+  <footer>
+    <p>Styled with <a href="http://metroui.org.ua">Metro UI CSS</a></p>
+  </footer>
+</html>

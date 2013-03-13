@@ -1,0 +1,55 @@
+.calendar {
+    .bg-color-white;
+
+    table {
+        border: 1px #ccc solid;
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+    }
+
+    tr:empty {
+        display: none;
+    }
+
+    td, th {
+        padding: 4px;
+        width: 14.285% !important;
+        font-size: 10pt;
+        border: 1px #ccc solid !important;
+        text-align: center;
+    }
+
+    td {
+        cursor: pointer;
+    }
+
+    .out {
+        background: #ececf0;
+        cursor: default;
+    }
+
+    .empty-day {
+        border: 0 !important;
+        display: none;
+    }
+
+    .weekdays td {
+        .bg-color-blueLight;
+        font-weight: bold !important;
+    }
+
+    .current-day {
+        .bg-color-green;
+        .fg-color-white;
+    }
+
+    .event {
+        .bg-color-blue;
+        .fg-color-white;
+    }
+}
+
+.datepicker {
+    position: relative;
+}
